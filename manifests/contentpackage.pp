@@ -36,4 +36,7 @@ define aem::contentpackage (
           }
     }
 
+  }
+  
 }
+
