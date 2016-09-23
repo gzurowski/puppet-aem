@@ -50,6 +50,29 @@ define aem::package (
       mode   => '0775',
     }
 
+    # Create the env script
+    file { "${home}/crx-quickstart/bin/start-env":
+      ensure  => file,
+      content => template("${module_name}/start-env.erb"),
+      mode    => '0775',
+    }
+  
+    # Rename the original start script.
+    file { "${home}/crx-quickstart/bin/start.orig":
+      ensure  => file,
+      replace => false,
+      source  => "${home}/crx-quickstart/bin/start",
+      mode    => '0775',
+    }
+  
+    # Create the start script
+    file { "${home}/crx-quickstart/bin/start":
+      ensure  => file,
+      content => template("${module_name}/start.erb"),
+      mode    => '0775',
+      require => File["${home}/crx-quickstart/bin/start.orig"],
+    }
+
   } else {
     # Remove installation
     file { "${home}/crx-quickstart": ensure => absent, force => true }
