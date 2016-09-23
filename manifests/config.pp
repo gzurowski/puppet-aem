@@ -48,12 +48,6 @@ define aem::config(
     require => File["${home}/crx-quickstart/bin/start.orig"],
   }
 
-  # Create the install folder in case there are any OSGi configurations; now or in the future
-  file {"${home}/crx-quickstart/install" :
-    ensure => directory,
-    mode   => '0775',
-  }
-
   if $osgi_configs {
 
     if is_array($osgi_configs) {

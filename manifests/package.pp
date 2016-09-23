@@ -43,6 +43,12 @@ define aem::package (
       creates => "${home}/crx-quickstart",
       onlyif  => ['which java', "test -f ${source}"],
     }
+    
+    # Create the install folder in case there are any OSGi configurations or content packages
+    file {"${home}/crx-quickstart/install" :
+      ensure => directory,
+      mode   => '0775',
+    }
 
   } else {
     # Remove installation
