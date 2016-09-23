@@ -24,7 +24,8 @@ define aem::instance (
   $timeout        = 600,
   $type           = author,
   $user           = 'aem',
-  $version        = undef) {
+  $version        = undef,
+  $content_packages = undef) {
 
   anchor { "aem::${name}::begin": }
 
@@ -98,6 +99,14 @@ define aem::instance (
     manage_home => $manage_home,
     source      => $source,
     user        => $user,
+  }
+
+  aem::contentpackage { $name : 
+     ensure      => $ensure,
+     content_packages => $content_packages,
+     group       => $group,
+     home        => $_home,
+     user        => $user,
   }
 
   if $status != 'unmanaged' {
