@@ -164,6 +164,7 @@ define aem::instance (
 
     Anchor["aem::${name}::begin"]
     -> Aem::Package[$name]
+    -> Aem::Contentpackage[$name]
     -> Aem::Config[$name]
     -> Aem_Installer[$name]
 
